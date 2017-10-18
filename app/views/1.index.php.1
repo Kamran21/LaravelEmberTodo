@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="he">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>BuyMe Todo Test</title>
+    
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+    <style type="text/css">
+    	
+      *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+    	body{
+    		background-color: black;
+    		display: flex;
+        justify-content: center;
+
+    	}
+    	
+    	.container{
+        text-align: right;
+    		display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    		width: 300px;
+        height: 600px;
+    		align-items: stretch;
+    		background-color: #E5E5E5;
+
+    	}
+
+
+      /*********************Header Add Todo****************/
+      /*
+        <div class="add-todo grad">
+          <p class="add-todo-text">משימות</p>
+          <span class="add-todo-btn">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+          </span>
+        </div>
+      */
+    	.add-todo{
+        /*position: relative;*/
+        z-index: 1000;
+    		background-color: #E6D184;
+        height: 60px;
+        line-height: 60px;
+        padding-right: 50px;
+        box-shadow: 0px -1px 13px 0px black;
+        font-size: 2em;
+        display: flex;
+        flex-direction: row-reverse;
+    	}
+
+      .add-todo.grad {
+        background: #E6D184; /* For browsers that do not support gradients */
+        background: -webkit-linear-gradient(#E6D184, #D38322); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(#E6D184, #D38322); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(#E6D184, #D38322); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(#E6D184, #D38322); /* Standard syntax */
+      }
+      .add-todo-text{
+        flex-grow: 1;
+      }
+      .add-todo-btn{
+       /* position: absolute;
+        left: 15px;*/
+        width: 48px;
+        height: 48px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        background-color: #EBEDF1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5px;
+        margin-left: 10px;
+      }
+      .add-todo-btn:hover{
+        background-color: #dad3d3;
+        box-shadow: 0 0 11px black;
+      }
+
+      .add-todo-btn i{
+        /*content:'+';*/
+        text-align: center;
+        line-height: 35px;
+        width: 35px;
+        height: 35px;
+        color: black;
+        border: 2px solid black;
+        border-radius: 50%;
+      }
+
+      .add-todo-btn span{
+        font-weight: bolder;
+      }
+
+
+      /*.btn-add .fa-plus-circle{
+        margin: auto;
+      }*/
+
+      /****************** Main Todos List **********************/
+      /* 
+        <ul class="list todos-list">
+          <li>
+            <input type="checkbox" class="todo-item todo-toggle" value=false>
+            <p class="todo-item todo-description">A</p>
+            <i class="todo-item todo-remove fa fa-times" aria-hidden="true"></i>
+          </li>
+        </ul>
+      */
+      .todos-list{
+        overflow-y: visible;
+        flex:1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .todos-list li{
+        background-color: white;
+        height: 50px;
+        line-height: 50px;
+        border-bottom: 2px solid black;
+        display: flex;
+        flex-direction: row-reverse;
+        flex-wrap: nowrap;
+        /*position: relative;*/
+      }
+ 
+      .todo-item{
+        text-align: center;
+        margin: auto;
+      }
+
+      .todo-description{
+        flex-grow: 1;
+        text-align: right;
+      }
+
+      .todo-toggle{
+        width: 25px;
+        height: 25px;
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+
+      .todo-description-linethrough{
+        text-decoration: line-through;
+        color: #C4C4C6;
+      }
+      /*Styling the checkbox using a label and css was taken from https://paulund.co.uk/style-checkboxes-with-css added the input[type=checkbox] {...*/
+
+      input[type=checkbox] {
+        visibility: hidden;
+      }
+      .checkboxFour {
+       /* width: 40px;
+        height: 40px;*/
+        width: 25px;
+        height: 25px;
+        background: #ddd;
+        /*margin: 20px 90px;*/
+
+        /*border-radius: 100%;*/
+        position: relative;
+        box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+      }
+
+      .checkboxFour label {
+        display: block;
+        width: 25px;
+        height: 25px;
+        /*border-radius: 100px;*/
+        transition: all .5s ease;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        background: #F0F0F0;
+        box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
+      }
+        /**
+         * Create the checked state
+         */
+      .checkboxFour input[type=checkbox]:checked + label {
+        background: #737373;
+      }
+
+      .todo-remove{
+        color: #25261D;
+        margin-left: 15px;
+        cursor: pointer;
+        font-size: 2em;
+        font-weight: lighter;
+      }
+
+      .todo-remove:hover{
+        color: gray;
+      }
+      /*i{
+        position: absolute;
+        left: 15px;
+        top:25px;
+      }*/
+
+
+      /****************** Footer Sums ********************/
+      /* 
+       <div class="todos-sum">
+          <ul class="list todos-sum-list">
+            <li>:לסיום</li>
+            <li>:הושלמו</li>
+            <li>:סה"כ</li>
+          </ul>
+        </div>
+      */
+      .todos-sum{
+        border-bottom: 1px solid #E5E5E5;
+        padding-top: 2px;
+        padding-bottom:2px;
+      }
+      
+      .todos-sum .todos-sum-list{
+        list-style-type:none;
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        flex-wrap: wrap;
+        background-color: white;
+        height: 15px;
+        text-align: center;
+      }
+
+      .todos-sum-list li{
+        flex-grow: 1;
+      }
+
+    </style>
+
+</head>
+
+<body>
+
+  <script type="text/x-handlebars">
+      {{outlet}}
+  </script>
+
+	 <script type="text/x-handlebars" data-template-name="todos">
+  	<div class="container">
+
+  		<div class="add-todo grad">
+        <p class="add-todo-text">משימות</p>
+        <span class="add-todo-btn btn-add">
+          <i class="faxx fa-plus-circlexx" aria-hidden="true"><span>+</span></i>
+        </span>
+      </div>
+  		
+  		<ul class="list todos-list">
+  			{{#each model as |todo index|}}
+          <li>
+            <div class ="todo-item todo-toggle checkboxFour" > 
+              {{input type="checkbox" checked=todo.isCompleted id=todo.elementId name ="title" }}
+              <label for={{todo.elementId}}> </label> 
+            </div>
+            <!-- <input type="checkbox" class="todo-item todo-toggle" value=false> -->
+            <p class="todo-item todo-description {{if todo.isCompleted "todo-description-linethrough"}}">{{todo.title}}.{{increment index}}</p>
+            <i class="todo-item todo-remove fa fa-times" aria-hidden="true"></i>
+          </li>
+  			{{/each}}
+  		</ul>
+  		
+  		<div class="todos-sum">
+  			<ul class="list todos-sum-list">
+  				<li><span>{{remaining}}</span>:לסיום</li>
+  				<li><span>{{inflection}}</span>:הושלמו</li>
+  				<li><span>{{sum}}</span>:סה"כ</li>
+  			</ul>
+  		</div>
+
+  	</div>
+  </script>
+   
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://builds.emberjs.com/tags/v1.13.5/ember-template-compiler.js"></script>
+  <script src="http://builds.emberjs.com/tags/v1.13.5/ember.debug.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ember-data.js/2.0.0/ember-data.js"></script>
+    
+   	<script type="text/javascript">
+   		
+
+          // Ember JS code
+        App = Ember.Application.create();
+
+        App.ApplicationAdapter = DS.RESTAdapter.extend({
+          namespace: 'api/v1'
+        });
+
+        Ember.Handlebars.registerBoundHelper('increment', function(integer) {
+            return integer + 1;
+        });
+        App.Store = DS.Store.extend({
+          adapter: 'App.ApplicationAdapter'
+        });
+
+        App.Todo = DS.Model.extend({
+            title: DS.attr('string'),
+            isCompleted: DS.attr('boolean'),
+            elementId: function() {
+              return "checkboxFourInput-" + this.get('id');
+            }.property('id')
+        });
+
+        App.Router.map( function() { 
+            this.resource('todos', function() {
+                this.route('todo', { path: '/:todo_id' });
+                this.route('add', { path: 'add' });
+            });
+        });
+
+        //redirect to todos meaning it is the default route => when '/' go to '/todos'
+        App.IndexRoute = Ember.Route.extend({
+            beforeModel: function() {
+                this.transitionTo('todos');
+            }
+        });
+
+        App.TodosRoute = Ember.Route.extend({
+          model: function () {
+            return this.store.findAll('todo');
+          }
+        });
+
+        TodoController = Ember.ObjectController.extend({
+          actions: {
+            editTodo: function () {
+              this.set('isEditing', true);
+            }
+          },
+
+          isEditing: false,
+
+          isCompleted: function(key, value){
+            var model = this.get('model');
+
+            if (value === undefined) {
+              // property being used as a getter
+              return model.get('isCompleted');
+            } else {
+              // property being used as  setter
+              model.set('isCompleted', value);
+              model.save();
+              return value;
+            }
+          }.property('model.isCompleted')
+        });
+
+        App.TodosController = Ember.Controller.extend({
+          actions:{
+
+          },
+          sum: function(){
+            return this.model.content.length;
+          }.property(),
+          remaining: function() {
+            return this.model.filterBy('isCompleted', false).get('length');
+          }.property(),
+          inflection: function() {
+            var all = this.get('sum');
+            var remaining = this.get('remaining');
+            return all - remaining;
+          }.property('sum','remaining')
+        });
+      
+   	</script>
+</body>
+</html>

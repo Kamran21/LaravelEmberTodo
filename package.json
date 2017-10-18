@@ -1,0 +1,23 @@
+{
+  "name": "todos",
+  "version": "1.0.0",
+  "description": "Todos App with Laravel API and Ember frotend",
+  "main": "index.js",
+  "scripts": {
+    "server": "php artisan serve",
+    "client": "cd Todos-Ember-Client && npm install && ember serve --proxy http://localhost:8000",
+    "build-sh": "ember build \"cp dist/index.html ../app/views/index.php \"cp -r dist/assets ../public/assets\"",
+    "build": "build.sh",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Ember",
+    "Larave",
+    "Todo"
+  ],
+  "author": "Kamran",
+  "license": "MIT",
+  "dependencies": {
+   
+  }
+}
